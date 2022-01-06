@@ -80,36 +80,30 @@ n_x_C = 40      #Werte zwischen 40 (minimal 20) und 80 (maximal 120) sind besond
 #F_Motor > 0 -> gebremste Rolle
 #F_Motor < 0 -> angetriebene Rolle
 
-"--------NEU---------"
-v_D = 60        #Durschnittliche Geschwindigkeit in [m/min]
-"--------------------"     
+#Durschnittliche Geschwindigkeit in [m/min]
+v_D = 60   
 
-F_Motor = 0            # Motorkraft [N]
+#Kräfte
+F_Motor = -30            # Motorkraft [N]
 F_ax = 0               # Axialkraft [N]        #positive Axialkraft zeigt in Rollrichtung rechts
 F_rad = -210             # Radialkraft [N]      #negative Radialkraft sorgt für die Vorspannung der Rolle
 
 mu = 0.3                # Reibungskoeffizient [-]
 
 
-#Material der Laufrolle
-
-"-----------NEU----------"        
+#Material der Laufrolle   
 Material_rolle="1.7225-unvergütet"
-
-Material=Material_rolle
 
 #Entnahme der Informationen über den Werkstoff auf "Materialskript"
 E_Rolle,nu_Rolle,R_m_Rolle,sigma_D_Rolle,N_Rm_Rolle,N_k_Rolle=Materialskript.Auswahl(Material_rolle)
-
 
 #Fuehrung
 Material_Schiene="1.7225-unvergütet"  #!!! POM wurde im Materialskript editiert!!!
 
 #Entnahme der Informationen über den Werkstoff auf "Materialskript"
-
 E_Fuehrung,nu_Fuehrung,R_m_Schiene,sigma_D_Schiene,N_Rm_Schiene,N_k_Schiene=Materialskript.Auswahl(Material_Schiene)
 
-"-------------"
+
 
 #Geometrie des Gotik-Profils
 alpha_deg = 30              # Kontaktwinkel [°]
@@ -120,11 +114,12 @@ r_KonturRolle = -7          # Konturradius der Rolle in [mm]
 r_KruemmungFuehrung = 39.5    # Kurven-Krümmungsradius der Führung [mm]
 r_KonturFuehrung = 6        # Konturradius der Führung [mm]
 
+#Auswahl-Optionen
 Materialspannungsberechnung = "on"  # Wenn hier nicht "on" steht, wird die Berechnung der Vergleichsspannungen im Materialinneren ausgelassen
 
 
-"Berechnung"
 
+"Berechnung"
 #Aufruf Hertz.parameter
 E_ers, sumk, xi_IST, eta_IST, k_H, n_H, alpha_rad, r_Abroll, h_N, h_T = Hertz.parameter(E_Rolle, nu_Rolle, E_Fuehrung, nu_Fuehrung, alpha_deg, A_T, r_KonturRolle, r_KruemmungFuehrung, r_KonturFuehrung)
 
@@ -174,7 +169,7 @@ try:        # Wenn die innerhalb von "try:" stehende Berechnung scheitert, dreht
     
     "Plots"
     
-    showPlots = True            # Parameter, welcher die Rückgabeart der Funktion Kinematik.kontaktkraefte bestimmt
+    showPlots = True                    # Parameter, welcher die Rückgabeart der Funktion Kinematik.kontaktkraefte bestimmt
     #Aufruf Kinematik.kontaktkraefte mit ausführlicher Rückgabe
     F_T1, F_A1, x_C_linsp1, y_C_linsp1, x_C_mesh1, y_C_mesh1, v_rel_x_C1, v_rel_y_C1, v_rel_res1, v_rel_x_C_dir1, v_rel_y_C_dir1, v_norm_x_C1, v_norm_y_C1, v_norm_res1, p1, tau_res1, tau_x_C1, tau_y_C1, dP2dxdy1, dPdy1, P1, dW2dxdy1, dWdy1, W1, M_R1, y_C_0spin1 = Kinematik.kontaktkraefte(n_x_C, a1, b1, p_max1, x_C_0spin1, alpha_rad1, mu, r_KonturFuehrung, r_Abroll, showPlots)
     F_T2, F_A2, x_C_linsp2, y_C_linsp2, x_C_mesh2, y_C_mesh2, v_rel_x_C2, v_rel_y_C2, v_rel_res2, v_rel_x_C_dir2, v_rel_y_C_dir2, v_norm_x_C2, v_norm_y_C2, v_norm_res2, p2, tau_res2, tau_x_C2, tau_y_C2, dP2dxdy2, dPdy2, P2, dW2dxdy2, dWdy2, W2, M_R2, y_C_0spin2 = Kinematik.kontaktkraefte(n_x_C, a2, b2, p_max2, x_C_0spin2, alpha_rad2, mu, r_KonturFuehrung, r_Abroll, showPlots)
@@ -252,7 +247,7 @@ try:        # Wenn die innerhalb von "try:" stehende Berechnung scheitert, dreht
         print()
         print("Starte Berechnung der maximalen Vergleichsspannung mittels Potentialtheorie")
         
-        print("Berechnung für Kontakt 1, da dieser maximal belastet ist")
+        print("Berechnung für Kontakt 1")
         #Suche globales Spannungsmaximum: Aufruf Potentialtheorie.vergleichsspannung_max
         vGEH_max, x_opt, y_opt, z_opt = Potentialtheorie.vergleichsspannung_max(E_Rolle, nu_Rolle, E_Fuehrung, nu_Fuehrung, a1, b1, p1, tau_x_C1, tau_y_C1, x_C_linsp1, y_C_linsp1)
         #Berechne die für die Plots benötigten Materialspannungen: Aufruf Potentialtheorie.vergleichsspannung_plot
@@ -289,7 +284,7 @@ try:        # Wenn die innerhalb von "try:" stehende Berechnung scheitert, dreht
         #Aufruf Plots.plot_vergleichsspannung
         Plots.plot_vergleichsspannung(x_linsp, y_linsp, z_linsp, vGEH_zx, vGEH_zy, x_opt, y_opt, z_opt)
         
-        print("Berechnung für Kontakt 2, da dieser maximal belastet ist")
+        print("Berechnung für Kontakt 2")
         #Suche globales Spannungsmaximum: Aufruf Potentialtheorie.vergleichsspannung_max
         vGEH_max, x_opt, y_opt, z_opt = Potentialtheorie.vergleichsspannung_max(E_Rolle, nu_Rolle, E_Fuehrung, nu_Fuehrung, a2, b2, p2, tau_x_C2, tau_y_C2, x_C_linsp2, y_C_linsp2)
         #Berechne die für die Plots benötigten Materialspannungen: Aufruf Potentialtheorie.vergleichsspannung_plot
