@@ -50,8 +50,6 @@ def parameter(E_Rolle, nu_Rolle, E_Fuehrung, nu_Fuehrung, alpha_deg, A_T, r_Kont
     
     
     #----Festlegen der Indizierung der Krümmungsradien---
-    #Der spannende Teil in diesem Skript! np.where ist quasi eine if, else Bedingung, die aber mit ...
-    #...linspace kombiniert werden kann   
     r_11=np.where(1/R_1>1/R_2,r_AbrollIst, r_KonturRolle)
     r_21=np.where(1/R_1>1/R_2,r_KurvenKruemmung, r_KonturFuehrung)
     r_12=np.where(1/R_1>1/R_2,r_KonturRolle, r_AbrollIst)
