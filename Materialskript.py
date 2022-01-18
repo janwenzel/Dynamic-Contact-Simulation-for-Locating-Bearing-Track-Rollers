@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 """
-Created on Thu Dec 10 09:19:56 2020
 
-@author: ei04yzyc
+Technical Universitiy Darmstadt, Germany
+Institute for Product Development and Machine Elements
+
+Dynamic Contact Simulation for Locating Bearing Track Rollers
+
+Material Database
+
 """
 
 # Auswahl: Hier werden alle Materialien mit ihren Eigenschaften aufgelistet

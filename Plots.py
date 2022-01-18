@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon May 11 11:36:04 2020
 
-@author: Christoph Bienefeld
+Technical Universitiy Darmstadt, Germany
+Institute for Product Development and Machine Elements
+
+Dynamic Contact Simulation for Locating Bearing Track Rollers
+
+Plots and Results
+
 """
 
 import numpy as np
@@ -66,8 +70,8 @@ def multiplot(F_N1, F_T1, F_A1, x_C_linsp1, y_C_linsp1, x_C_mesh1, y_C_mesh1, v_
     
     
     
-def print_kraefte(F_N1, F_T1, F_A1, F_N2, F_T2, F_A2, h_N, h_T):
-    """Gibt die Kräfte und Momenten in der Konsole aus"""
+def print_results(F_N1, F_T1, F_A1, F_N2, F_T2, F_A2, h_N, h_T,a1,b1,a2,b2):
+    """Gibt die Kräfte, Momenten und Größen der Ellipse in der Konsole aus"""
     
     print()
     print("Berechnete Kontaktkräfte:")
@@ -78,7 +82,9 @@ def print_kraefte(F_N1, F_T1, F_A1, F_N2, F_T2, F_A2, h_N, h_T):
     M_y_R = h_N*(F_N1-F_N2) + h_T*(F_T1+F_T2)
     print("Kippmoment M_y_R =", round(M_y_R/1000,2), "Nm")
     print()
-    
+    print("Berechnete Kontaktfläche:")
+    print("Halbachse a:\t\ta2 =", round(a2,2), "mm\t\ta1 =", round(a1,2), "mm")
+    print("Halbachse b:\t\ta2 =", round(b2,2), "mm\t\ta1 =", round(b1,2), "mm")
 
 
 def plot_vergleichsspannung(x_linsp, y_linsp, z_linsp, vGEH_zx, vGEH_zy, x_opt, y_opt, z_opt):

@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 """
-Created on Tue Jun  2 16:17:47 2020
 
-@author: Christoph Bienefeld
+Technical Universitiy Darmstadt, Germany
+Institute for Product Development and Machine Elements
+
+Dynamic Contact Simulation for Locating Bearing Track Rollers
+
+Special case
+
 """
 
 import numpy as np

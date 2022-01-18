@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 """
-Created on Thu Jan 16 12:28:50 2020
 
-@author: Jan Wenzel, edited by Christoph Bienefeld
+Technical Universitiy Darmstadt, Germany
+Institute for Product Development and Machine Elements
+
+Dynamic Contact Simulation for Locating Bearing Track Rollers
+
+Necessary Parts of the Hertzian Theory
+
 """
 
 import numpy as np
