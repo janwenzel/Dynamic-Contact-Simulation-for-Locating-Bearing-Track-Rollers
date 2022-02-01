@@ -22,7 +22,9 @@ def multiplot(F_N1, F_T1, F_A1, x_C_linsp1, y_C_linsp1, x_C_mesh1, y_C_mesh1, v_
     a_max = np.maximum(a1,a2)
     b_max = np.maximum(b1,b2)
     
-    q2 = axs[0,0].quiver(x_C_mesh2, y_C_mesh2, tau_x_C2, tau_y_C2, tau_res2, units="xy", pivot="tip")
+    q2 = axs[0,0].quiver(x_C_mesh2, y_C_mesh2, tau_x_C2, tau_y_C2, tau_res2, units="xy", pivot="tip",
+                         cmap="viridis"
+                         )
     axs[0,0].quiverkey(q2, 0.45, 0.9, 200, r'$200 MPa$', labelpos='E',
                        coordinates='figure')
     # axs[0,0].scatter(x_C_mesh2, y_C_mesh2, color='0.2', s=1)
@@ -34,9 +36,9 @@ def multiplot(F_N1, F_T1, F_A1, x_C_linsp1, y_C_linsp1, x_C_mesh1, y_C_mesh1, v_
     for ii in np.linspace(0,1,201):
         ellipse = Ellipse((0,0), 2*a2 + ii*a2, 2*b2 + ii*b2,edgecolor = "w", linewidth = 2, fill = False)
         axs[0,0].add_patch(ellipse)
-    ellipse = Ellipse((0,0), 2*a2, 2*b2,edgecolor = "brown", linewidth = 2, fill = False)
+    ellipse = Ellipse((0,0), 2*a2, 2*b2,edgecolor = "black", linewidth = 2, fill = False)
     axs[0,0].add_patch(ellipse)
-    circle = Circle((x_C_0spin2, y_C_0spin2), radius = a_max/40, color = "crimson")
+    circle = Circle((x_C_0spin2, y_C_0spin2), radius = a_max/40, color = "black")
     axs[0,0].add_patch(circle)
     
     
@@ -50,24 +52,25 @@ def multiplot(F_N1, F_T1, F_A1, x_C_linsp1, y_C_linsp1, x_C_mesh1, y_C_mesh1, v_
     for ii in np.linspace(0,1,201):
         ellipse = Ellipse((0,0), 2*a1 + ii*a1, 2*b1 + ii*b1,edgecolor = "w", linewidth = 2, fill = False)
         axs[0,1].add_patch(ellipse)
-    ellipse = Ellipse((0,0), 2*a1, 2*b1,edgecolor = "brown", linewidth = 2, fill = False)
+    ellipse = Ellipse((0,0), 2*a1, 2*b1,edgecolor = "black", linewidth = 2, fill = False)
     axs[0,1].add_patch(ellipse)
-    circle = Circle((x_C_0spin1, y_C_0spin1), radius = a_max/40, color = "crimson")
+    circle = Circle((x_C_0spin1, y_C_0spin1), radius = a_max/40, color = "black")
     axs[0,1].add_patch(circle)
     
     
     
-    axs[1,0].plot(x_C_linsp2, dWdy2)
+    axs[1,0].plot(x_C_linsp2, dWdy2,color="black",linewidth=3)
     axs[1,0].set_xlabel('$x_{C2}$ in mm')
     axs[1,0].set_ylabel(r'Relative Reibenergieverteilung in $\frac{kJ}{m^2}$')
     axs[1,0].set_title("Reibenergie pro Rollweg: " + str(round(W2, 3)) + r"$\frac{J}{m}$", loc = "left")
+    axs[1,0].grid()
     
     
-    axs[1,1].plot(x_C_linsp1, dWdy1)
+    axs[1,1].plot(x_C_linsp1, dWdy1,color="black",linewidth=3)
     axs[1,1].set_xlabel('$x_{C1}$ in mm')
     axs[1,1].set_ylabel(r'Relative Reibenergieverteilung in $\frac{kJ}{m^2}$')
     axs[1,1].set_title("Reibenergie pro Rollweg: " + str(round(W1, 3)) + r"$\frac{J}{m}$", loc = "left")
-    
+    axs[1,1].grid()
     
     
 def print_results(F_N1, F_T1, F_A1, F_N2, F_T2, F_A2, h_N, h_T,a1,b1,a2,b2):
