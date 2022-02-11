@@ -19,6 +19,7 @@ import Potentialtheorie
 import Spezialfall
 import Woehlerlinie
 import Materialskript
+from Input_and_Run_Sim import parameter
 
 
 def optimierung_kraefte(r_delta0):
@@ -67,55 +68,22 @@ def optimierung_kraefte(r_delta0):
     return M_x_R_delta
 
 
+"---------Start of the simulation procedure-------------"
 
-
-"Eingaben"
-
-#Anzahl der diskreten Berechnungspunkte in x-Richtung
-n_x_C = 40      #Werte zwischen 40 (minimal 20) und 80 (maximal 120) sind besonders empfehlenswert
-
-#Rollenbelastung - Die zugrundeliegenden Kraftrichtungsdefinitionen können der Dokumentation entnommen werden
-#F_Motor > 0 -> Braking 
-#F_Motor < 0 -> Driving
-
-#Mean velocity [m/min]
-v_D = 60   
-
-#Forces
-F_Motor = -30            # Driving Force [N]
-F_ax = 0               # Axial Force [N]        #positive Axialkraft zeigt in Rollrichtung rechts
-F_rad = -210             # Radial Force [N]      #negative Radialkraft sorgt für die Vorspannung der Rolle
-
-mu = 0.3                # Coefficient of Friction [-]
-
+"Load parameters"
+#Load all parameters from "Input_and_Run_Sim.py"
+n_x_C,v_D,F_Motor,F_ax,F_rad,mu,Material_rolle,Material_Schiene,alpha_deg,A_T,r_KonturRolle,r_KruemmungFuehrung,r_KonturFuehrung,Materialspannungsberechnung=parameter()
 
 #Material der Laufrolle   
-Material_rolle="1.7225-unvergütet"
 #Entnahme der Informationen über den Werkstoff aus "Materialskript.py"
 E_Rolle,nu_Rolle,R_m_Rolle,sigma_D_Rolle,N_Rm_Rolle,N_k_Rolle=Materialskript.Auswahl(Material_rolle)
 
 #Material der Fuehrung
-Material_Schiene="1.7225-unvergütet"
 #Entnahme der Informationen über den Werkstoff aus "Materialskript.py"
 E_Fuehrung,nu_Fuehrung,R_m_Schiene,sigma_D_Schiene,N_Rm_Schiene,N_k_Schiene=Materialskript.Auswahl(Material_Schiene)
 
 
-
-#Geometrie des Gotik-Profils
-alpha_deg = 30              # Kontaktwinkel [°]
-
-A_T = 21.75                 # Abstand zwischen Rollenachse und Führungsachse [mm]
-r_KonturRolle = -7          # Konturradius der Rolle in [mm]
-
-r_KruemmungFuehrung = 39.5    # Kurven-Krümmungsradius der Führung [mm]
-r_KonturFuehrung = 6        # Konturradius der Führung [mm]
-
-#Auswahl-Optionen
-Materialspannungsberechnung = "on"  # Wenn hier nicht "on" steht, wird die Berechnung der Vergleichsspannungen im Materialinneren ausgelassen
-
-
-
-"Berechnung"
+"Calculation"
 #Aufruf Hertz.parameter
 E_ers, sumk, xi_IST, eta_IST, k_H, n_H, alpha_rad, r_Abroll, h_N, h_T = Hertz.parameter(E_Rolle, nu_Rolle, E_Fuehrung, nu_Fuehrung, alpha_deg, A_T, r_KonturRolle, r_KruemmungFuehrung, r_KonturFuehrung)
 
